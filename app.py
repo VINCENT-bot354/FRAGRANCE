@@ -59,7 +59,7 @@ ADMIN_PASSWORD = "CHARA7436"
 # Contact information
 CONTACT_INFO = {
     "phone": "0702533122",
-    "whatsapp": "0702533122",
+    "whatsapp": "254702533122",
     "instagram": "chara_fashion_fragrance"
 }
 

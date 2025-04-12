@@ -1,1 +1,20 @@
-[]
+[
+    {
+        "id": "b707c377-abe1-4935-a467-4f8726c52928",
+        "name": "Neptune ",
+        "type": "clothes",
+        "category": "Skirt and top",
+        "brand": "CHARA",
+        "price": "700",
+        "description": "perfect for a Beach Trip",
+        "colors": [
+            "white"
+        ],
+        "sizes": [
+            "8",
+            "9"
+        ],
+        "created_at": "2025-04-12 06:16:53",
+        "updated_at": "2025-04-12 06:16:53"
+    }
+]

@@ -60,11 +60,11 @@
                         {% if product.type in ['perfumes', 'jewelry'] %}
                         <div class="coming-soon">Coming Soon</div>
                         {% endif %}
+                        {% set first_image = get_first_image(product.id) %}
                         <img 
-                            src="{{ url_for('static', filename='products/' + product.id + '/main.jpg') }}" 
+                            src="{{ url_for('product_image', product_id=product.id, filename=first_image) if first_image else 'https://images.unsplash.com/photo-1561456287-43a33c3a3aea' }}" 
                             alt="{{ product.name }}" 
                             class="product-img"
-                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1561456287-43a33c3a3aea';"
                         >
                     </div>
                     <div class="product-body">
