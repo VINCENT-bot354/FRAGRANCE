@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 # Initialize Flask app
 app = Flask(__name__)
-app.secret_key = os.environ.get("SESSION_SECRET", "chara_fashion_fragrance_secret")
+app.secret_key = os.environ.get("SESSION_SECRET", os.urandom(24).hex())
 
 # Ensure data directory exists
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
