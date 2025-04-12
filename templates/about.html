@@ -4,7 +4,7 @@
 
 {% block content %}
 <!-- About Hero Section -->
-<section class="hero" style="background-image: url('https://images.unsplash.com/photo-1561456287-43a33c3a3aea');">
+<section class="hero" style="background-image: url('{% if background_url %}{{ background_url }}{% else %}https://images.unsplash.com/photo-1561456287-43a33c3a3aea{% endif %}');">
     <div class="hero-content">
         <h1 class="hero-title">About CHARA</h1>
         <p class="hero-subtitle">Our Story of Fashion and Joy</p>

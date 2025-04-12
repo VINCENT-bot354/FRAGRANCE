@@ -150,7 +150,16 @@ def product_detail(product_id):
 
 @app.route('/about')
 def about():
-    return render_template('about.html', contact_info=CONTACT_INFO)
+    # Get current background image if available
+    current_background = get_current_background()
+    background_url = None
+    
+    if current_background:
+        background_url = url_for('static', filename=f'images/backgrounds/{current_background}')
+    
+    return render_template('about.html', 
+                          contact_info=CONTACT_INFO,
+                          background_url=background_url)
 
 @app.route('/contact')
 def contact():
@@ -343,6 +352,92 @@ def delete_product_image():
         return jsonify({'success': True})
     else:
         return jsonify({'success': False, 'message': 'Image not found'}), 404
+
+# Background image management
+@app.route('/admin/backgrounds')
+@admin_required
+def manage_backgrounds():
+    background_dir = os.path.join(app.static_folder, 'images/backgrounds')
+    backgrounds = []
+    
+    if os.path.exists(background_dir):
+        for filename in os.listdir(background_dir):
+            if filename.lower().endswith(('.jpg', '.jpeg', '.png', '.gif')):
+                backgrounds.append(filename)
+    
+    current_background = get_current_background()
+    return render_template('manage_backgrounds.html', 
+                          backgrounds=backgrounds, 
+                          current_background=current_background,
+                          contact_info=CONTACT_INFO)
+
+@app.route('/admin/backgrounds/upload', methods=['POST'])
+@admin_required
+def upload_background():
+    background_file = request.files.get('background')
+    
+    if not background_file or not background_file.filename:
+        flash('No file selected!', 'danger')
+        return redirect(url_for('manage_backgrounds'))
+    
+    background_dir = os.path.join(app.static_folder, 'images/backgrounds')
+    if not os.path.exists(background_dir):
+        os.makedirs(background_dir)
+    
+    filename = secure_filename(background_file.filename)
+    background_file.save(os.path.join(background_dir, filename))
+    
+    flash('Background image uploaded successfully!', 'success')
+    return redirect(url_for('manage_backgrounds'))
+
+@app.route('/admin/backgrounds/set-current', methods=['POST'])
+@admin_required
+def set_current_background():
+    background = request.form.get('background')
+    
+    if not background:
+        flash('No background selected!', 'danger')
+        return redirect(url_for('manage_backgrounds'))
+    
+    # Save the current background choice to a file
+    with open(os.path.join(app.static_folder, 'images/backgrounds', 'current.txt'), 'w') as f:
+        f.write(background)
+    
+    flash('Current background set successfully!', 'success')
+    return redirect(url_for('manage_backgrounds'))
+
+@app.route('/admin/backgrounds/delete', methods=['POST'])
+@admin_required
+def delete_background():
+    background = request.form.get('background')
+    
+    if not background:
+        flash('No background selected!', 'danger')
+        return redirect(url_for('manage_backgrounds'))
+    
+    if background == get_current_background():
+        flash('Cannot delete the current background. Please select a different background first.', 'danger')
+        return redirect(url_for('manage_backgrounds'))
+    
+    background_path = os.path.join(app.static_folder, 'images/backgrounds', background)
+    
+    if os.path.exists(background_path):
+        os.remove(background_path)
+        flash('Background deleted successfully!', 'success')
+    else:
+        flash('Background not found!', 'danger')
+    
+    return redirect(url_for('manage_backgrounds'))
+
+# Helper function to get the current background
+def get_current_background():
+    current_path = os.path.join(app.static_folder, 'images/backgrounds', 'current.txt')
+    
+    if os.path.exists(current_path):
+        with open(current_path, 'r') as f:
+            return f.read().strip()
+    
+    return None
 
 # Error handlers
 @app.errorhandler(404)
