@@ -1,0 +1,201 @@
+{% extends 'layout.html' %}
+
+{% block title %}How to Order | CHARA FASHION AND FRAGRANCE{% endblock %}
+
+{% block content %}
+<!-- How to Order Hero Section -->
+<section class="hero" style="background-image: url('https://images.unsplash.com/photo-1485736231968-0c8ad5c9e174');">
+    <div class="hero-content">
+        <h1 class="hero-title">How to Order</h1>
+        <p class="hero-subtitle">Simple Steps to Get Your Fashion Items</p>
+    </div>
+</section>
+
+<!-- How to Order Content -->
+<section class="how-to-order-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-4">Ordering Process</h2>
+                <p class="lead">At CHARA FASHION AND FRAGRANCE, we've made ordering as simple as possible. Follow these easy steps to get your favorite fashion items delivered to you.</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <span class="step-number">1</span>
+                    <h3 class="step-title">Browse Our Collection</h3>
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <p>Start by exploring our collection of clothes, shoes, and accessories. Use the filter options to narrow down your search by product type, category, or other specifications.</p>
+                            <p>Click on any product to view detailed information, including available sizes, colors, and multiple product images from different angles.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-search fa-4x text-accent"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <span class="step-number">2</span>
+                    <h3 class="step-title">Choose Your Products</h3>
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <p>Once you've found items you love, note down the product names, sizes, colors, and any other relevant details. You can view all available options on each product's detail page.</p>
+                            <p>Take your time to review all product images and information to ensure you're selecting exactly what you want.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-clipboard-list fa-4x text-accent"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <span class="step-number">3</span>
+                    <h3 class="step-title">Contact Us to Order</h3>
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <p>When you're ready to place an order, you can contact us through one of the following methods:</p>
+                            <ul>
+                                <li><strong>WhatsApp:</strong> Send a message to <a href="https://wa.me/{{ contact_info.whatsapp }}" target="_blank">{{ contact_info.whatsapp }}</a></li>
+                                <li><strong>Phone Call:</strong> Call us directly at <a href="tel:{{ contact_info.phone }}">{{ contact_info.phone }}</a></li>
+                                <li><strong>Instagram:</strong> Send a direct message to <a href="https://instagram.com/{{ contact_info.instagram }}" target="_blank">@{{ contact_info.instagram }}</a></li>
+                            </ul>
+                            <p>You can also click the "Order Now" button on any product page, which will redirect you to your preferred contact method with a pre-filled message about the product.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-mobile-alt fa-4x text-accent"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="step-card">
+                    <span class="step-number">4</span>
+                    <h3 class="step-title">Confirm Order Details</h3>
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <p>Once you contact us, we'll confirm the availability of your selected items, provide you with the total cost including any applicable delivery fees, and answer any questions you might have.</p>
+                            <p>We'll also discuss delivery options and timeframes to ensure your order reaches you as conveniently as possible.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-check-circle fa-4x text-accent"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 5 -->
+                <div class="step-card">
+                    <span class="step-number">5</span>
+                    <h3 class="step-title">Payment and Delivery</h3>
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <p>We accept various payment methods including mobile money transfers and cash on delivery, depending on your location and preference.</p>
+                            <p>After your payment is confirmed, we'll prepare your order for delivery or pickup, whichever you prefer. We'll provide tracking information where available and keep you updated on your order status.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-truck fa-4x text-accent"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Order Options -->
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <h3 class="mb-4">Ready to Order?</h3>
+                <p>Contact us now through your preferred method:</p>
+                <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+                    <a href="https://wa.me/{{ contact_info.whatsapp }}" class="btn btn-primary btn-lg" target="_blank">
+                        <i class="fab fa-whatsapp me-2"></i> WhatsApp
+                    </a>
+                    <a href="tel:{{ contact_info.phone }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-phone me-2"></i> Call Us
+                    </a>
+                    <a href="https://instagram.com/{{ contact_info.instagram }}" class="btn btn-primary btn-lg" target="_blank">
+                        <i class="fab fa-instagram me-2"></i> Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQs -->
+        <div class="row mt-5">
+            <div class="col-lg-10 mx-auto">
+                <h3 class="mb-4">Frequently Asked Questions</h3>
+                <div class="accordion" id="orderFAQs">
+                    <div class="accordion-item bg-dark">
+                        <h2 class="accordion-header" id="faqOne">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="false" aria-controls="faqCollapseOne">
+                                What payment methods do you accept?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseOne" class="accordion-collapse collapse" aria-labelledby="faqOne" data-bs-parent="#orderFAQs">
+                            <div class="accordion-body">
+                                We accept various payment methods including mobile money transfers (like M-Pesa) and cash on delivery for local orders. We'll provide specific payment details when you place your order.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item bg-dark">
+                        <h2 class="accordion-header" id="faqTwo">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                                How long will delivery take?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#orderFAQs">
+                            <div class="accordion-body">
+                                Delivery time depends on your location. Local deliveries typically take 1-3 business days. We'll provide you with an estimated delivery timeframe when you place your order.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item bg-dark">
+                        <h2 class="accordion-header" id="faqThree">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                                Can I cancel or modify my order after placing it?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#orderFAQs">
+                            <div class="accordion-body">
+                                Yes, you can modify or cancel your order before it's dispatched for delivery. Simply contact us through WhatsApp, phone, or Instagram as soon as possible with your request.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item bg-dark">
+                        <h2 class="accordion-header" id="faqFour">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour">
+                                What if the item I want is out of stock?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqFour" data-bs-parent="#orderFAQs">
+                            <div class="accordion-body">
+                                If an item you want is out of stock, we'll notify you immediately and offer similar alternatives or the option to be notified when the item is back in stock.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item bg-dark">
+                        <h2 class="accordion-header" id="faqFive">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFive" aria-expanded="false" aria-controls="faqCollapseFive">
+                                Do you offer exchanges or returns?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseFive" class="accordion-collapse collapse" aria-labelledby="faqFive" data-bs-parent="#orderFAQs">
+                            <div class="accordion-body">
+                                Yes, we offer exchanges for items in their original condition. Please contact us within 3 days of receiving your order to arrange an exchange. Specific terms and conditions may apply.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

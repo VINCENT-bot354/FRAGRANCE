@@ -1,0 +1,152 @@
+{% extends 'layout.html' %}
+
+{% block title %}Contact Us | CHARA FASHION AND FRAGRANCE{% endblock %}
+
+{% block content %}
+<!-- Contact Hero Section -->
+<section class="hero" style="background-image: url('https://images.unsplash.com/photo-1523381294911-8d3cead13475');">
+    <div class="hero-content">
+        <h1 class="hero-title">Contact Us</h1>
+        <p class="hero-subtitle">We'd Love to Hear From You</p>
+    </div>
+</section>
+
+<!-- Contact Methods -->
+<section class="contact-section">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="mb-4">Get in Touch</h2>
+                <p class="lead">Have questions about our products or need assistance with an order? Reach out to us using any of the methods below.</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="contact-card">
+                    <div class="text-center">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3 class="contact-title">Phone</h3>
+                        <p>Call us directly for immediate assistance</p>
+                        <a href="tel:{{ contact_info.phone }}" class="btn btn-primary order-btn" data-contact="phone" data-number="{{ contact_info.phone }}">
+                            {{ contact_info.phone }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="contact-card">
+                    <div class="text-center">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3 class="contact-title">WhatsApp</h3>
+                        <p>Chat with us for quick responses and inquiries</p>
+                        <a href="https://wa.me/{{ contact_info.whatsapp }}" class="btn btn-primary order-btn" data-contact="whatsapp" data-number="{{ contact_info.whatsapp }}">
+                            {{ contact_info.whatsapp }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="contact-card">
+                    <div class="text-center">
+                        <div class="contact-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <h3 class="contact-title">Instagram</h3>
+                        <p>Follow us and send a direct message</p>
+                        <a href="https://instagram.com/{{ contact_info.instagram }}" class="btn btn-primary order-btn" data-contact="instagram" data-username="{{ contact_info.instagram }}">
+                            @{{ contact_info.instagram }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <h3 class="mb-4">Business Hours</h3>
+                <table class="table table-dark">
+                    <tbody>
+                        <tr>
+                            <td>Monday - Friday</td>
+                            <td>9:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Saturday</td>
+                            <td>10:00 AM - 4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Sunday</td>
+                            <td>Closed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="col-md-6">
+                <h3 class="mb-4">Frequently Asked Questions</h3>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item bg-dark">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                How can I place an order?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                You can place an order by contacting us through WhatsApp, Instagram, or phone. Visit our <a href="{{ url_for('how_to_order') }}">How to Order</a> page for detailed instructions.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Do you offer delivery services?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes, we offer delivery services. We'll discuss delivery details and costs when you place your order.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                What payment methods do you accept?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                We accept various payment methods including mobile money transfers and cash on delivery. We'll provide payment details when you place your order.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Visit Section -->
+<section class="py-5 bg-darker-custom">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center">
+                <h2 class="mb-4">Visit Our Boutique</h2>
+                <p class="mb-4">Experience our collection in person and get personalized style advice from our friendly staff.</p>
+                <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">Explore Products</a>
+            </div>
+            <div class="col-md-6">
+                <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88" alt="Our Boutique" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

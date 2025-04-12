@@ -1,0 +1,276 @@
+{% extends 'layout.html' %}
+
+{% block title %}Admin Dashboard | CHARA FASHION AND FRAGRANCE{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="admin-title">Admin Dashboard</h1>
+            <div>
+                <a href="{{ url_for('admin_logout') }}" class="btn btn-outline-light btn-sm">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <!-- Add Product -->
+    <div class="admin-content">
+        <h2 class="mb-4">Add New Product</h2>
+        <form action="{{ url_for('add_product') }}" method="POST" enctype="multipart/form-data">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="product-name" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="product-name" name="name" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="product-brand" class="form-label">Brand</label>
+                        <input type="text" class="form-control" id="product-brand" name="brand">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="product-type" class="form-label">Product Type</label>
+                        <select class="form-select" id="product-type" name="type" required>
+                            <option value="">Select Type</option>
+                            {% for type in product_types %}
+                            <option value="{{ type }}">{{ type|capitalize }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="product-category" class="form-label">Category</label>
+                        <select class="form-select" id="product-category" name="category" data-categories="{{ product_categories|tojson }}" required>
+                            <option value="">Select Category</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="product-subcategory" class="form-label">Subcategory</label>
+                        <input type="text" class="form-control" id="product-subcategory" name="subcategory">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="product-price" class="form-label">Price (KSh)</label>
+                        <input type="number" class="form-control" id="product-price" name="price" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="product-images" class="form-label">Product Images</label>
+                        <input type="file" class="form-control" id="product-images" name="images" multiple accept=".jpg,.jpeg,.png,.gif">
+                        <div class="form-text">Select multiple images to upload. First image will be the main display image.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="product-colors" class="form-label">Available Colors</label>
+                        <input type="text" class="form-control" id="product-colors" name="colors" placeholder="e.g. Red, Blue, Black">
+                        <div class="form-text">Comma-separated list of colors</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="product-sizes" class="form-label">Available Sizes</label>
+                        <input type="text" class="form-control" id="product-sizes" name="sizes" placeholder="e.g. S, M, L, XL">
+                        <div class="form-text">Comma-separated list of sizes</div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="product-description" class="form-label">Description</label>
+                        <textarea class="form-control" id="product-description" name="description" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div id="image-preview" class="product-images-preview mb-3"></div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Manage Products -->
+    <div class="admin-content">
+        <h2 class="mb-4">Manage Products</h2>
+        {% if products|length > 0 %}
+        <div class="table-responsive">
+            <table class="table table-hover admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.id[:8] }}...</td>
+                        <td>
+                            <img 
+                                src="/data/products/{{ product.id }}/{{ get_first_image(product.id) }}" 
+                                alt="{{ product.name }}" 
+                                class="admin-product-thumbnail"
+                                onerror="this.onerror=null; this.src='https://via.placeholder.com/60?text=No+Image';"
+                            >
+                        </td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.type|capitalize }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>KSh {{ product.price }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button 
+                                    class="btn btn-sm btn-outline-primary edit-product-btn" 
+                                    data-product-id="{{ product.id }}"
+                                    data-product-name="{{ product.name }}"
+                                    data-product-type="{{ product.type }}"
+                                    data-product-category="{{ product.category }}"
+                                    data-product-subcategory="{{ product.subcategory }}"
+                                    data-product-brand="{{ product.brand }}"
+                                    data-product-price="{{ product.price }}"
+                                    data-product-description="{{ product.description }}"
+                                    data-product-colors="{{ product.colors|join(', ') }}"
+                                    data-product-sizes="{{ product.sizes|join(', ') }}"
+                                >
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-sm btn-outline-info" target="_blank">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger delete-product-btn">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-box-open fa-3x mb-3 text-muted"></i>
+            <h3>No products yet</h3>
+            <p class="text-muted">Add your first product using the form above.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Edit Product Modal -->
+<div class="modal fade" id="edit-product-modal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-product-form" action="" method="POST" enctype="multipart/form-data">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="edit-name" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="edit-name" name="name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="edit-brand" class="form-label">Brand</label>
+                                <input type="text" class="form-control" id="edit-brand" name="brand">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="edit-type" class="form-label">Product Type</label>
+                                <select class="form-select" id="edit-type" name="type" required>
+                                    <option value="">Select Type</option>
+                                    {% for type in product_types %}
+                                    <option value="{{ type }}">{{ type|capitalize }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="edit-category" class="form-label">Category</label>
+                                <select class="form-select" id="edit-category" name="category" data-categories="{{ product_categories|tojson }}" required>
+                                    <option value="">Select Category</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="edit-subcategory" class="form-label">Subcategory</label>
+                                <input type="text" class="form-control" id="edit-subcategory" name="subcategory">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="edit-price" class="form-label">Price (KSh)</label>
+                                <input type="number" class="form-control" id="edit-price" name="price" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="edit-images" class="form-label">Add More Images</label>
+                                <input type="file" class="form-control" id="edit-images" name="images" multiple accept=".jpg,.jpeg,.png,.gif">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="edit-colors" class="form-label">Available Colors</label>
+                                <input type="text" class="form-control" id="edit-colors" name="colors" placeholder="e.g. Red, Blue, Black">
+                                <div class="form-text">Comma-separated list of colors</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="edit-sizes" class="form-label">Available Sizes</label>
+                                <input type="text" class="form-control" id="edit-sizes" name="sizes" placeholder="e.g. S, M, L, XL">
+                                <div class="form-text">Comma-separated list of sizes</div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="edit-description" class="form-label">Description</label>
+                                <textarea class="form-control" id="edit-description" name="description" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Current Images</label>
+                            <div id="edit-images-preview" class="product-images-preview"></div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}

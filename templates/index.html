@@ -1,0 +1,192 @@
+{% extends 'layout.html' %}
+
+{% block title %}CHARA FASHION AND FRAGRANCE | Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" style="background-image: url('https://images.unsplash.com/photo-1445510861639-5651173bc5d5');">
+    <div class="hero-content">
+        <h1 class="hero-title">CHARA FASHION AND FRAGRANCE</h1>
+        <p class="hero-subtitle">Experience Joy Through Fashion</p>
+        <a href="#products" class="btn btn-primary btn-lg">Explore Products</a>
+    </div>
+</section>
+
+<!-- Products Section -->
+<section id="products" class="product-grid">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h2 class="mb-4">Our Products</h2>
+            </div>
+            <div class="col-md-6">
+                <form id="filter-form" class="d-flex flex-wrap justify-content-end gap-2">
+                    <div class="form-group">
+                        <select id="filter-type" class="form-select form-select-sm">
+                            <option value="">All Products</option>
+                            {% for type in product_types %}
+                            <option value="{{ type }}" {% if request.args.get('type') == type %}selected{% endif %}>
+                                {{ type|capitalize }}
+                                {% if type in ['perfumes', 'jewelry'] %}
+                                (Coming Soon)
+                                {% endif %}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select id="filter-category" class="form-select form-select-sm" data-categories="{{ product_categories|tojson }}">
+                            <option value="">All Categories</option>
+                            {% if request.args.get('type') and product_categories[request.args.get('type')] %}
+                                {% for category in product_categories[request.args.get('type')] %}
+                                <option value="{{ category }}" {% if request.args.get('category') == category %}selected{% endif %}>
+                                    {{ category }}
+                                </option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary">Filter</button>
+                </form>
+            </div>
+        </div>
+        
+        {% if products|length > 0 %}
+        <div class="row g-4">
+            {% for product in products %}
+            <div class="col-md-4 col-lg-3 col-sm-6">
+                <div class="product-card">
+                    <div class="product-img-wrapper">
+                        {% if product.type in ['perfumes', 'jewelry'] %}
+                        <div class="coming-soon">Coming Soon</div>
+                        {% endif %}
+                        <img 
+                            src="{{ url_for('static', filename='products/' + product.id + '/main.jpg') }}" 
+                            alt="{{ product.name }}" 
+                            class="product-img"
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1561456287-43a33c3a3aea';"
+                        >
+                    </div>
+                    <div class="product-body">
+                        <h5 class="product-title">{{ product.name }}</h5>
+                        <div class="product-category">{{ product.category }} • {{ product.brand }}</div>
+                        <div class="product-price">KSh {{ product.price }}</div>
+                        <div class="product-footer">
+                            <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-outline-primary btn-sm w-100">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-search fa-3x mb-3 text-muted"></i>
+            <h3>No products found</h3>
+            <p class="text-muted">Try adjusting your filters or check back later.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Featured Categories Section -->
+<section class="py-5 bg-darker-custom">
+    <div class="container">
+        <h2 class="text-center mb-5">Shop by Category</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card bg-dark text-white h-100">
+                    <img src="https://images.unsplash.com/photo-1596484552993-aec4311d3381" class="card-img" alt="Clothing display" style="height: 300px; object-fit: cover;">
+                    <div class="card-img-overlay d-flex align-items-end">
+                        <div>
+                            <h3 class="card-title">Clothes</h3>
+                            <p class="card-text">Explore our elegant collection of clothing</p>
+                            <a href="{{ url_for('index', type='clothes') }}" class="btn btn-outline-light">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card bg-dark text-white h-100">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" class="card-img" alt="Shoes display" style="height: 300px; object-fit: cover;">
+                    <div class="card-img-overlay d-flex align-items-end">
+                        <div>
+                            <h3 class="card-title">Shoes</h3>
+                            <p class="card-text">Step into style with our footwear collection</p>
+                            <a href="{{ url_for('index', type='shoes') }}" class="btn btn-outline-light">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card bg-dark text-white h-100">
+                    <img src="https://images.unsplash.com/photo-1458538977777-0549b2370168" class="card-img" alt="Perfume display" style="height: 300px; object-fit: cover;">
+                    <div class="card-img-overlay d-flex align-items-end">
+                        <div>
+                            <h3 class="card-title">Perfumes</h3>
+                            <p class="card-text">Coming soon: Discover our signature fragrances</p>
+                            <button class="btn btn-outline-light" disabled>Coming Soon</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card bg-dark text-white h-100">
+                    <img src="https://images.unsplash.com/photo-1531995811006-35cb42e1a022" class="card-img" alt="Jewelry display" style="height: 300px; object-fit: cover;">
+                    <div class="card-img-overlay d-flex align-items-end">
+                        <div>
+                            <h3 class="card-title">Jewelry</h3>
+                            <p class="card-text">Coming soon: Adorn yourself with our jewelry collection</p>
+                            <button class="btn btn-outline-light" disabled>Coming Soon</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Store Displays Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Elegant Boutique</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88" alt="Boutique display" class="img-fluid rounded">
+            </div>
+            <div class="col-md-6">
+                <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475" alt="Boutique display" class="img-fluid rounded">
+            </div>
+            <div class="col-md-6">
+                <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85" alt="Boutique display" class="img-fluid rounded">
+            </div>
+            <div class="col-md-6">
+                <img src="https://images.unsplash.com/photo-1702661159134-2e8d4dcf0231" alt="Boutique display" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Order Now Section -->
+<section class="py-5 bg-darker-custom">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center">
+                <h2 class="mb-4">Ready to Order?</h2>
+                <p class="mb-4">Discover our collection and order your favorite pieces today.</p>
+                <a href="{{ url_for('how_to_order') }}" class="btn btn-primary btn-lg">How to Order</a>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center gap-3 mt-4 mt-md-0">
+                    <a href="https://wa.me/{{ contact_info.whatsapp }}" class="btn btn-outline-light btn-lg" target="_blank">
+                        <i class="fab fa-whatsapp me-2"></i> WhatsApp
+                    </a>
+                    <a href="tel:{{ contact_info.phone }}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-phone me-2"></i> Call Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

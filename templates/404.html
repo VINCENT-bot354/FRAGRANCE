@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block title %}Page Not Found | CHARA FASHION AND FRAGRANCE{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="display-1 text-accent">404</h1>
+            <h2 class="mb-4">Page Not Found</h2>
+            <p class="lead mb-5">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+            <div>
+                <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-home me-2"></i> Return to Homepage
+                </a>
+            </div>
+            
+            <div class="mt-5">
+                <h4 class="mb-4">You might be interested in:</h4>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <a href="{{ url_for('index', type='clothes') }}" class="card bg-dark h-100 text-decoration-none">
+                            <div class="card-body text-center">
+                                <i class="fas fa-tshirt fa-2x mb-3 text-accent"></i>
+                                <h5>Browse Clothes</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="{{ url_for('index', type='shoes') }}" class="card bg-dark h-100 text-decoration-none">
+                            <div class="card-body text-center">
+                                <i class="fas fa-shoe-prints fa-2x mb-3 text-accent"></i>
+                                <h5>Browse Shoes</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="{{ url_for('contact') }}" class="card bg-dark h-100 text-decoration-none">
+                            <div class="card-body text-center">
+                                <i class="fas fa-envelope fa-2x mb-3 text-accent"></i>
+                                <h5>Contact Us</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="{{ url_for('how_to_order') }}" class="card bg-dark h-100 text-decoration-none">
+                            <div class="card-body text-center">
+                                <i class="fas fa-shopping-bag fa-2x mb-3 text-accent"></i>
+                                <h5>How to Order</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

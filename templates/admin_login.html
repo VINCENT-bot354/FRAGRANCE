@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}Admin Login | CHARA FASHION AND FRAGRANCE{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="admin-login">
+        <h2 class="text-center mb-4">Admin Login</h2>
+        <form method="POST" action="{{ url_for('admin_login') }}">
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{{ url_for('index') }}" class="text-muted"><i class="fas fa-arrow-left me-1"></i> Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
