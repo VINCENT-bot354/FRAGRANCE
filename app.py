@@ -197,7 +197,6 @@ def add_product():
     name = request.form.get('name')
     product_type = request.form.get('type')
     category = request.form.get('category')
-    subcategory = request.form.get('subcategory')
     brand = request.form.get('brand')
     price = request.form.get('price')
     description = request.form.get('description')
@@ -215,7 +214,6 @@ def add_product():
         'name': name,
         'type': product_type,
         'category': category,
-        'subcategory': subcategory,
         'brand': brand,
         'price': price,
         'description': description,
@@ -266,7 +264,6 @@ def edit_product(product_id):
     product['name'] = request.form.get('name')
     product['type'] = request.form.get('type')
     product['category'] = request.form.get('category')
-    product['subcategory'] = request.form.get('subcategory')
     product['brand'] = request.form.get('brand')
     product['price'] = request.form.get('price')
     product['description'] = request.form.get('description')

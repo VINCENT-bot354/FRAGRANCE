@@ -1,42 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Product type and category handling
+    // Product type handling
     const typeSelect = document.getElementById('product-type');
-    const categorySelect = document.getElementById('product-category');
     
-    if (typeSelect && categorySelect) {
-        typeSelect.addEventListener('change', function() {
-            updateCategories();
-        });
-        
-        // Update categories on load
-        updateCategories();
-        
-        function updateCategories() {
-            const productType = typeSelect.value;
-            
-            // Clear current categories
-            categorySelect.innerHTML = '<option value="">Select Category</option>';
-            
-            if (productType) {
-                // Get categories for selected type from data attribute
-                const categoriesData = categorySelect.dataset.categories;
-                if (categoriesData) {
-                    try {
-                        const categories = JSON.parse(categoriesData);
-                        const typeCategories = categories[productType] || [];
-                        
-                        typeCategories.forEach(category => {
-                            const option = document.createElement('option');
-                            option.value = category;
-                            option.textContent = category;
-                            categorySelect.appendChild(option);
-                        });
-                    } catch (error) {
-                        console.error('Error parsing categories data:', error);
-                    }
-                }
-            }
-        }
+    if (typeSelect) {
+        // No special behavior needed anymore since category is a free-form input
     }
     
     // Image preview for add/edit product
@@ -133,24 +100,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Update form fields
                 document.getElementById('edit-name').value = productName;
                 
-                // Set product type (and trigger change event for categories)
+                // Set product type
                 const editTypeSelect = document.getElementById('edit-type');
                 editTypeSelect.value = productType;
                 
-                // Trigger a change event to update categories
-                const event = new Event('change');
-                editTypeSelect.dispatchEvent(event);
-                
-                // Set category (after categories are updated)
-                setTimeout(() => {
-                    const editCategorySelect = document.getElementById('edit-category');
-                    if (editCategorySelect) {
-                        editCategorySelect.value = productCategory;
-                    }
-                }, 100);
+                // Set category
+                const editCategorySelect = document.getElementById('edit-category');
+                if (editCategorySelect) {
+                    editCategorySelect.value = productCategory;
+                }
                 
                 // Set remaining fields
-                document.getElementById('edit-subcategory').value = productSubcategory;
                 document.getElementById('edit-brand').value = productBrand;
                 document.getElementById('edit-price').value = productPrice;
                 document.getElementById('edit-description').value = productDescription;
@@ -239,42 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Type-specific fields on edit form
-    const editTypeSelect = document.getElementById('edit-type');
-    const editCategorySelect = document.getElementById('edit-category');
-    
-    if (editTypeSelect && editCategorySelect) {
-        editTypeSelect.addEventListener('change', function() {
-            updateEditCategories();
-        });
-        
-        function updateEditCategories() {
-            const productType = editTypeSelect.value;
-            
-            // Clear current categories
-            editCategorySelect.innerHTML = '<option value="">Select Category</option>';
-            
-            if (productType) {
-                // Get categories for selected type from data attribute
-                const categoriesData = editCategorySelect.dataset.categories;
-                if (categoriesData) {
-                    try {
-                        const categories = JSON.parse(categoriesData);
-                        const typeCategories = categories[productType] || [];
-                        
-                        typeCategories.forEach(category => {
-                            const option = document.createElement('option');
-                            option.value = category;
-                            option.textContent = category;
-                            editCategorySelect.appendChild(option);
-                        });
-                    } catch (error) {
-                        console.error('Error parsing categories data:', error);
-                    }
-                }
-            }
-        }
-    }
+    // No special category handling needed anymore
 });
 
 // Helper function to fetch product images for editing
