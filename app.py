@@ -16,11 +16,6 @@ logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "chara_fashion_fragrance_secret")
 
-# Add current_year to all templates
-@app.context_processor
-def inject_current_year():
-    return {'current_year': datetime.now().year}
-
 # Ensure data directory exists
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 PRODUCTS_FILE = os.path.join(DATA_DIR, 'products.json')
@@ -30,6 +25,33 @@ if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
 if not os.path.exists(PRODUCTS_DIR):
     os.makedirs(PRODUCTS_DIR)
+
+# Register a route for serving product images
+from flask import send_from_directory
+
+@app.route('/data/products/<product_id>/<filename>')
+def product_image(product_id, filename):
+    return send_from_directory(os.path.join(PRODUCTS_DIR, product_id), filename)
+
+# Add current_year to all templates
+@app.context_processor
+def inject_current_year():
+    return {'current_year': datetime.now().year}
+
+# Helper function to get the first image of a product
+@app.context_processor
+def inject_utility_functions():
+    def get_first_image(product_id):
+        product_folder = os.path.join(PRODUCTS_DIR, product_id)
+        if os.path.exists(product_folder):
+            for filename in os.listdir(product_folder):
+                if filename.lower().endswith(('.jpg', '.jpeg', '.png', '.gif')):
+                    return filename
+        return None
+    
+    return {
+        'get_first_image': get_first_image
+    }
 
 # Admin password
 ADMIN_PASSWORD = "CHARA7436"
@@ -150,7 +172,7 @@ def admin_login():
         else:
             flash('Invalid password!', 'danger')
     
-    return render_template('admin_login.html')
+    return render_template('admin_login.html', contact_info=CONTACT_INFO)
 
 @app.route('/admin/logout')
 def admin_logout():
@@ -165,7 +187,8 @@ def admin():
     return render_template('admin.html', 
                           products=products, 
                           product_types=PRODUCT_TYPES, 
-                          product_categories=PRODUCT_CATEGORIES)
+                          product_categories=PRODUCT_CATEGORIES,
+                          contact_info=CONTACT_INFO)
 
 @app.route('/admin/product/add', methods=['POST'])
 @admin_required
@@ -293,6 +316,19 @@ def delete_product(product_id):
     
     flash('Product deleted successfully!', 'success')
     return redirect(url_for('admin'))
+
+@app.route('/admin/product/images/<product_id>')
+@admin_required
+def get_product_images(product_id):
+    product_folder = os.path.join(PRODUCTS_DIR, product_id)
+    images = []
+    
+    if os.path.exists(product_folder):
+        for filename in os.listdir(product_folder):
+            if filename.lower().endswith(('.jpg', '.jpeg', '.png', '.gif')):
+                images.append(filename)
+    
+    return jsonify({'success': True, 'images': images})
 
 @app.route('/admin/product/image/delete', methods=['POST'])
 @admin_required
