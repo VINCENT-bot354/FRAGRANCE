@@ -67,8 +67,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 switch (contactMethod) {
                     case 'whatsapp':
                         const whatsappNumber = this.dataset.number;
-                        const whatsappMessage = encodeURIComponent(`Hello, I am interested in ${productName} and would like to discuss more.`);
-                        window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
+                        // Only add message text if ordering a specific product
+                        if (productName) {
+                            const whatsappMessage = encodeURIComponent(`Hello, I am interested in ${productName} and would like to discuss more.`);
+                            window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
+                        } else {
+                            window.open(`https://wa.me/${whatsappNumber}`, '_blank');
+                        }
                         break;
                         
                     case 'instagram':
