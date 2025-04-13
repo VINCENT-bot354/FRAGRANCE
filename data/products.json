@@ -1,7 +1,7 @@
 [
     {
         "id": "b707c377-abe1-4935-a467-4f8726c52928",
-        "name": "Neptune ",
+        "name": "Aurora",
         "type": "clothes",
         "category": "Skirt and top",
         "brand": "CHARA",
@@ -15,24 +15,83 @@
             "9"
         ],
         "created_at": "2025-04-12 06:16:53",
-        "updated_at": "2025-04-12 22:52:58"
+        "updated_at": "2025-04-13 10:44:34"
     },
     {
         "id": "60b5950a-10f2-4303-b4e4-d92794f94c94",
-        "name": "AURORA",
+        "name": "Neptune",
         "type": "clothes",
         "category": "DRESS",
         "brand": "CHARA",
-        "price": "800",
+        "price": "700",
         "description": "Dotted",
         "colors": [
             "BLACK"
         ],
         "sizes": [
+            "ALL SIZES"
+        ],
+        "created_at": "2025-04-12 22:56:59",
+        "updated_at": "2025-04-13 10:34:04"
+    },
+    {
+        "id": "0d902278-9849-4b3b-b69d-946f2f0ddeab",
+        "name": "PLUTO",
+        "type": "clothes",
+        "category": "TWO PIECE",
+        "brand": "CHARA",
+        "price": "700",
+        "description": "Your choice for a night out",
+        "colors": [
+            "GREEN"
+        ],
+        "sizes": [
+            "SIZE 6",
+            "7",
             "8",
             "9"
         ],
-        "created_at": "2025-04-12 22:56:59",
-        "updated_at": "2025-04-12 22:56:59"
+        "created_at": "2025-04-13 10:18:31",
+        "updated_at": "2025-04-13 10:18:31"
+    },
+    {
+        "id": "cb680e54-40e5-49b7-8472-03446c8ddcf5",
+        "name": "NAIROBI",
+        "type": "clothes",
+        "category": "TWO PIECE",
+        "brand": "CHARA",
+        "price": "600",
+        "description": "Modern office wear",
+        "colors": [
+            "CHECKED"
+        ],
+        "sizes": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "created_at": "2025-04-13 10:24:57",
+        "updated_at": "2025-04-13 10:24:57"
+    },
+    {
+        "id": "4615ca0c-39b9-47f1-8412-b7b1e07e8b08",
+        "name": "SAHARA",
+        "type": "clothes",
+        "category": "DRESS",
+        "brand": "CHARA",
+        "price": "700",
+        "description": "Perfect for a romantic date",
+        "colors": [
+            "RED"
+        ],
+        "sizes": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "created_at": "2025-04-13 10:31:39",
+        "updated_at": "2025-04-13 10:31:39"
     }
 ]
