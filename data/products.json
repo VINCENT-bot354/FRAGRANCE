@@ -21,7 +21,7 @@
         "id": "60b5950a-10f2-4303-b4e4-d92794f94c94",
         "name": "Neptune",
         "type": "clothes",
-        "category": "DRESS",
+        "category": "two piece",
         "brand": "CHARA",
         "price": "700",
         "description": "Dotted",
@@ -32,7 +32,7 @@
             "ALL SIZES"
         ],
         "created_at": "2025-04-12 22:56:59",
-        "updated_at": "2025-04-13 10:34:04"
+        "updated_at": "2025-04-17 18:29:13"
     },
     {
         "id": "0d902278-9849-4b3b-b69d-946f2f0ddeab",
@@ -93,5 +93,22 @@
         ],
         "created_at": "2025-04-13 10:31:39",
         "updated_at": "2025-04-13 10:31:39"
+    },
+    {
+        "id": "f2659fac-aba8-4b68-802a-59a898e9df16",
+        "name": "Pink Barbie",
+        "type": "clothes",
+        "category": "two piece",
+        "brand": "CHARA",
+        "price": "800",
+        "description": "sleek and stunning. Slay with pink",
+        "colors": [
+            "all"
+        ],
+        "sizes": [
+            "all sizes"
+        ],
+        "created_at": "2025-04-17 18:28:04",
+        "updated_at": "2025-04-17 18:28:04"
     }
 ]
